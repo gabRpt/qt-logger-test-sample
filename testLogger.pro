@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     logger.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    simpleQtLogger.cpp
 
 HEADERS += \
     logger.h \
-    mainwindow.h
+    mainwindow.h \
+    simpleQtLogger.h
 
 FORMS += \
     mainwindow.ui

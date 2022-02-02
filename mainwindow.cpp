@@ -3,6 +3,8 @@
 #include <signal.h>
 #include <QDebug>
 #include <iostream>
+#include "simpleQtLogger.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,25 +34,31 @@ MainWindow::~MainWindow()
 
 void MainWindow::onDebug() {
     qDebug()<< "DEFLEXION : ";
+    L_DEBUG("L_DEBUG");
 }
 
 void MainWindow::onInfo() {
     qInfo() << "Info Log!";
+    L_INFO("L_INFO");
 }
 
 void MainWindow::onWarning() {
     qWarning() << "Warning Log!";
+    L_WARN("L_WARN");
 }
 
 void MainWindow::onCritical() {
     qCritical() << "Critical Log!";
+    L_ERROR("L_ERROR");
 }
 
 void MainWindow::onFatal() {
+    L_FATAL("L_FATAL");
     qFatal("Fatal Log!");
 }
 
 void MainWindow::outOfRangeQListIndex(){
+    L_FUNC("L_FUNC");
     QList<double> myQList;
     myQList.append(12.5);
     myQList.append(12.1);
