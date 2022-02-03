@@ -33,6 +33,7 @@ public:
     void throwError();
     void unsignedInt();
     void activateDebug();
+    void logLevelcbBox(const QString &text);
 
 };
 #endif // MAINWINDOW_H

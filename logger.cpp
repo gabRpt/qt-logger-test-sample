@@ -22,15 +22,23 @@ QList<QtMsgType> Logger::acceptedMsg = QList<QtMsgType>({QtMsgType::QtDebugMsg,
                                                        QtMsgType::QtWarningMsg,
                                                        QtMsgType::QtCriticalMsg,
                                                        QtMsgType::QtFatalMsg});
+QList<QtMsgType> Logger::acceptedMsgOrder = Logger::acceptedMsg;
+
 
 QList<QtMsgType> Logger::getAcceptedMsg()
 {
     return Logger::acceptedMsg;
 }
 
-void Logger::setAcceptedMsg(const QList<QtMsgType> &value)
+void Logger::setAcceptedMsg(const QString &text)
 {
-    Logger::acceptedMsg = value;
+    int indexOfmsg = Logger::acceptedMsgOrder.indexOf(Logger::contextNames.key(text));
+    int maxIndex = Logger::acceptedMsgOrder.size()-1;
+
+    Logger::acceptedMsg.clear();
+    for(int i=maxIndex ; i>=indexOfmsg; i--){
+        acceptedMsg.append(acceptedMsgOrder.value(i));
+    }
 }
 
 void Logger::init() {

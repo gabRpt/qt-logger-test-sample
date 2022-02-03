@@ -22,6 +22,8 @@ private:
 
     static QList<QtMsgType> acceptedMsg;
 
+    static QList<QtMsgType> acceptedMsgOrder;
+
 public:
     /// @brief Initializes the logger.
     static void init();
@@ -33,7 +35,7 @@ public:
     static void messageOutput(QtMsgType type, const QMessageLogContext& context,
         const QString& msg);
     static QList<QtMsgType> getAcceptedMsg();
-    static void setAcceptedMsg(const QList<QtMsgType> &value);
+    static void setAcceptedMsg(const QString &text);
 };
 
 #endif // LOGGER_H

@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->throwError, &QPushButton::clicked, this, &MainWindow::throwError);
     QObject::connect(ui->unsignedInt, &QPushButton::clicked, this, &MainWindow::unsignedInt);
     QObject::connect(ui->activateDebug, &QCheckBox::stateChanged, this, &MainWindow::activateDebug);
+    QObject::connect(ui->logLevelcbBox, &QComboBox::currentTextChanged, this, &MainWindow::logLevelcbBox);
 }
 
 MainWindow::~MainWindow()
@@ -36,13 +37,14 @@ MainWindow::~MainWindow()
 void MainWindow::activateDebug(){
     QList<QtMsgType> msgList = Logger::getAcceptedMsg();
     if(ui->activateDebug->isChecked()){
-        if(!msgList.contains(QtMsgType::QtDebugMsg)){
-            msgList.append(QtMsgType::QtDebugMsg);
-        }
+        Logger::setAcceptedMsg(QString("Debug"));
     } else {
-        msgList.removeAll(QtMsgType::QtDebugMsg);
+        Logger::setAcceptedMsg(QString("Info"));
     }
-    Logger::setAcceptedMsg(msgList);
+}
+
+void MainWindow::logLevelcbBox(const QString &text){
+    Logger::setAcceptedMsg(text);
 }
 
 void MainWindow::onDebug() {
