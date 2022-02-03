@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     // enable sinks
     simpleqtlogger::ENABLE_LOG_SINK_FILE = true;
     simpleqtlogger::ENABLE_LOG_SINK_CONSOLE = true;
-    simpleqtlogger::ENABLE_LOG_SINK_QDEBUG = false;
-    simpleqtlogger::ENABLE_LOG_SINK_SIGNAL = false;
+    simpleqtlogger::ENABLE_LOG_SINK_QDEBUG = true;
+    simpleqtlogger::ENABLE_LOG_SINK_SIGNAL = true;
   #ifdef Q_OS_LINUX
     simpleqtlogger::ENABLE_LOG_SINK_SYSLOG = true;
     simpleqtlogger::NAME_LOG_SINK_SYSLOG = "";

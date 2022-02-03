@@ -75,8 +75,6 @@ void MainWindow::onFatal() {
 void MainWindow::outOfRangeQListIndex(){
     L_FUNC("L_FUNC");
     QList<double> myQList;
-    myQList.append(12.5);
-    myQList.append(12.1);
     std::cout << myQList[99];
 }
 

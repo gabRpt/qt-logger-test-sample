@@ -17,6 +17,9 @@ private:
     /// @brief Whether the logger has being initialized.
     static bool isInit;
 
+    //Determines whether a crash log file should be created or not when a crash orccurs
+    static bool createCrashLog;
+
     /// @brief The different type of contexts.
     static QHash<QtMsgType, QString> contextNames;
 

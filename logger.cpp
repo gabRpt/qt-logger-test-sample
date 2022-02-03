@@ -10,6 +10,7 @@
 
 QFile* Logger::logFile = Q_NULLPTR;
 bool Logger::isInit = false;
+bool Logger::createCrashLog = true;
 QHash<QtMsgType, QString> Logger::contextNames = {
     {QtMsgType::QtDebugMsg,		" Debug  "},
     {QtMsgType::QtInfoMsg,		"  Info  "},
@@ -51,8 +52,6 @@ void Logger::init() {
     logFile->setFileName(QDir::home().filePath("Documents/alize2Logs.log"));
     logFile->open(QIODevice::Append | QIODevice::Text);
 
-    std::cout << logFile->fileName().toStdString();
-
     // Redirect logs to messageOutput
     qInstallMessageHandler(Logger::messageOutput);
 
@@ -70,7 +69,7 @@ void Logger::clean() {
 }
 
 void Logger::messageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
-    if(Logger::acceptedMsg.contains(type)){
+    if(acceptedMsg.contains(type)){
         QString log = QObject::tr("%1 | %2 | %3 | %4 | %5 | %6\n").
             arg(QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss")).
             arg(Logger::contextNames.value(type)).
@@ -85,5 +84,9 @@ void Logger::messageOutput(QtMsgType type, const QMessageLogContext& context, co
 
         logFile->write(log.toLocal8Bit());
         logFile->flush();
+        if(type == QtMsgType::QtFatalMsg && createCrashLog){
+            QString date = QDateTime::currentDateTime().toString("dd-MM-yyyy-hh-mm-ss");
+            logFile->rename(QString(QDir::home().filePath("Documents/alize2Logs_crash_"+date+".log")));
+        }
     }
 }
