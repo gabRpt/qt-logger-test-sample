@@ -20,6 +20,8 @@ private:
     /// @brief The different type of contexts.
     static QHash<QtMsgType, QString> contextNames;
 
+    static QList<QtMsgType> acceptedMsg;
+
 public:
     /// @brief Initializes the logger.
     static void init();
@@ -30,6 +32,8 @@ public:
     /// @brief The function which handles the logging of text.
     static void messageOutput(QtMsgType type, const QMessageLogContext& context,
         const QString& msg);
+    static QList<QtMsgType> getAcceptedMsg();
+    static void setAcceptedMsg(const QList<QtMsgType> &value);
 };
 
 #endif // LOGGER_H

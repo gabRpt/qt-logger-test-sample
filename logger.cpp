@@ -17,6 +17,21 @@ QHash<QtMsgType, QString> Logger::contextNames = {
     {QtMsgType::QtCriticalMsg,	"Critical"},
     {QtMsgType::QtFatalMsg,		" Fatal  "}
 };
+QList<QtMsgType> Logger::acceptedMsg = QList<QtMsgType>({QtMsgType::QtDebugMsg,
+                                                       QtMsgType::QtInfoMsg,
+                                                       QtMsgType::QtWarningMsg,
+                                                       QtMsgType::QtCriticalMsg,
+                                                       QtMsgType::QtFatalMsg});
+
+QList<QtMsgType> Logger::getAcceptedMsg()
+{
+    return Logger::acceptedMsg;
+}
+
+void Logger::setAcceptedMsg(const QList<QtMsgType> &value)
+{
+    Logger::acceptedMsg = value;
+}
 
 void Logger::init() {
     if (isInit) {
@@ -47,7 +62,7 @@ void Logger::clean() {
 }
 
 void Logger::messageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
-//    if(type != QtMsgType::QtDebugMsg){
+    if(Logger::acceptedMsg.contains(type)){
         QString log = QObject::tr("%1 | %2 | %3 | %4 | %5 | %6\n").
             arg(QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss")).
             arg(Logger::contextNames.value(type)).
@@ -62,5 +77,5 @@ void Logger::messageOutput(QtMsgType type, const QMessageLogContext& context, co
 
         logFile->write(log.toLocal8Bit());
         logFile->flush();
-//    }
+    }
 }

@@ -32,5 +32,7 @@ public:
     void longLongInt();
     void throwError();
     void unsignedInt();
+    void activateDebug();
+
 };
 #endif // MAINWINDOW_H

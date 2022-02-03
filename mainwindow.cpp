@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <iostream>
 #include "simpleQtLogger.h"
-
+#include "logger.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,11 +25,24 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->longLongInt, &QPushButton::clicked, this, &MainWindow::longLongInt);
     QObject::connect(ui->throwError, &QPushButton::clicked, this, &MainWindow::throwError);
     QObject::connect(ui->unsignedInt, &QPushButton::clicked, this, &MainWindow::unsignedInt);
+    QObject::connect(ui->activateDebug, &QCheckBox::stateChanged, this, &MainWindow::activateDebug);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::activateDebug(){
+    QList<QtMsgType> msgList = Logger::getAcceptedMsg();
+    if(ui->activateDebug->isChecked()){
+        if(!msgList.contains(QtMsgType::QtDebugMsg)){
+            msgList.append(QtMsgType::QtDebugMsg);
+        }
+    } else {
+        msgList.removeAll(QtMsgType::QtDebugMsg);
+    }
+    Logger::setAcceptedMsg(msgList);
 }
 
 void MainWindow::onDebug() {
