@@ -1,4 +1,5 @@
 #include "logger.h"
+#include "simpleQtLogger.h"
 
 #include <QDateTime>
 #include <QDir>
@@ -12,11 +13,11 @@ QFile* Logger::logFile = Q_NULLPTR;
 bool Logger::isInit = false;
 bool Logger::createCrashLog = true;
 QHash<QtMsgType, QString> Logger::contextNames = {
-    {QtMsgType::QtDebugMsg,		" Debug  "},
-    {QtMsgType::QtInfoMsg,		"  Info  "},
-    {QtMsgType::QtWarningMsg,	"Warning "},
+    {QtMsgType::QtDebugMsg,		"Debug"},
+    {QtMsgType::QtInfoMsg,		"Info"},
+    {QtMsgType::QtWarningMsg,	"Warning"},
     {QtMsgType::QtCriticalMsg,	"Critical"},
-    {QtMsgType::QtFatalMsg,		" Fatal  "}
+    {QtMsgType::QtFatalMsg,		"Fatal"}
 };
 QList<QtMsgType> Logger::acceptedMsg = QList<QtMsgType>({QtMsgType::QtDebugMsg,
                                                        QtMsgType::QtInfoMsg,

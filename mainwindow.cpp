@@ -35,7 +35,6 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::activateDebug(){
-    QList<QtMsgType> msgList = Logger::getAcceptedMsg();
     if(ui->activateDebug->isChecked()){
         Logger::setAcceptedMsg(QString("Debug"));
     } else {
