@@ -7,7 +7,7 @@
 #include <QHash>
 #include <QObject>
 
-#include <iostream>
+#include<QTextStream>
 
 QFile* Logger::logFile = Q_NULLPTR;
 bool Logger::isInit = false;
@@ -71,6 +71,7 @@ void Logger::clean() {
 
 void Logger::messageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
     if(acceptedMsg.contains(type)){
+        QTextStream out(stdout);
         QString log = QObject::tr("%1 | %2 | %3 | %4 | %5 | %6\n").
             arg(QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss")).
             arg(Logger::contextNames.value(type)).
@@ -89,5 +90,6 @@ void Logger::messageOutput(QtMsgType type, const QMessageLogContext& context, co
             QString date = QDateTime::currentDateTime().toString("dd-MM-yyyy-hh-mm-ss");
             logFile->rename(QString(QDir::home().filePath("Documents/alize2Logs_crash_"+date+".log")));
         }
+        out << log;
     }
 }
